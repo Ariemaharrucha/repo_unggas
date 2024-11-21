@@ -1,71 +1,63 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+import socket from "../socket/socket.js";
 
 export const ListDokter = () => {
-  const navigate = useNavigate();
-  const [dokter, setDokter] = useState([]);
+  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const getDokter = async () => {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/dokter/list"
-      );
-      console.log(response.data.data);
-      setDokter(response.data.data);
-    };
-    getDokter();
-
     const userData = localStorage.getItem("user");
     if (userData) {
       setUser(JSON.parse(userData));
     }
+
+    socket.emit("joinRoom", 26);
+    socket.on("receiveMessage", (msg) => {
+      console.log("Message received in frontend:", msg);
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
   }, []);
 
-  async function handleCreateKonsultasi(user_id, dokter_id) {
-    // console.log(user_id, dokter_id);
-    
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/konsultasi",
-      {
-        user_id: user_id,
-        dokter_id: dokter_id,
-      }
-    );
-    const konsultasiId = response.data.data;
-    // console.log(konsultasiId);
-    
-    if (konsultasiId) {
-      navigate(`/chat-apps/chat/${konsultasiId}`);
+  function handleSendMessage() {
+    if (message.trim()) {
+      socket.emit("sendMessage", {
+        konsultasiId: 26,
+        senderId: user.id,
+        content: message,
+      });
     }
+    setMessage("");
   }
+
   return (
     <div>
       <h1>hi {user?.username} </h1>
       <h1>List Dokter</h1>
       <div>
-        <ul className="flex gap-10">
-          {dokter.map((dokterItem) => {
-            return (
-              <div key={dokterItem.dokter_id}>
-                <li>{dokterItem.nama_dokter}</li>
-                <li>{dokterItem.spesialis}</li>
-                <li>{dokterItem.pengalaman}</li>
-                <li>{dokterItem.jam_kerja}</li>
-                <li>
-                  <img
-                    className="size-10"
-                    src={`http://localhost:3000/${dokterItem.image_profile}`}
-                    alt=""
-                  />
-                </li>
-                <button className="px-4 py-2 bg-blue-500 text-white" onClick={() => handleCreateKonsultasi(user.id, dokterItem.dokter_id)}>
-                  Chat
-                </button>
-              </div>
-            );
-          })}
+        <div>
+          <h2>Chat</h2>
+          <input
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type a message..."
+          />
+          <button onClick={handleSendMessage}>Send</button>
+        </div>
+        <ul>
+          {messages && messages.map((msg, index) => (
+            <li key={index}>
+              <strong>{msg.senderId === user.id ? "You" : "Dokter"}:</strong>{" "}
+              {msg.content}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
