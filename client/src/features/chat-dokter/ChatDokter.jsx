@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import axios from "axios";
-
-const socket = io("http://localhost:3000");
+import socket from "../socket/socket.js";
 
 export const ChatDokter = () => {
   const [dokter, setDokter] = useState(null);
@@ -10,8 +8,6 @@ export const ChatDokter = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  // console.log(socket);
-  
 
   useEffect(() => {
     const dokterData = localStorage.getItem("user");
@@ -41,6 +37,7 @@ export const ChatDokter = () => {
       socket.emit("joinRoom", selectedUser.konsultasi_id);
 
       socket.on("receiveMessage", (msg) => {
+        console.log("Message received in frontend:", msg);
         setMessages((prev) => [...prev, msg]);
       });
 
@@ -73,6 +70,7 @@ export const ChatDokter = () => {
               onClick={() => {
                 setSelectedUser(user);
                 setMessages([]);
+                console.log(selectedUser);
               }}
             >
               {user.username}
@@ -84,6 +82,12 @@ export const ChatDokter = () => {
         {selectedUser ? (
           <>
             <h2>Chat with {selectedUser.username}</h2>
+            <input
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type a message..."
+            />
+            <button onClick={handleSendMessage}>Send</button>
             <ul>
               {messages.map((msg, index) => (
                 <li key={index}>
@@ -93,13 +97,7 @@ export const ChatDokter = () => {
                   {msg.content}
                 </li>
               ))}
-            </ul>
-            <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type a message..."
-            />
-            <button onClick={handleSendMessage}>Send</button>
+            </ul>          
           </>
         ) : (
           <p>Select user to start chatting.</p>

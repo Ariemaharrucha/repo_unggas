@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import io from "socket.io-client";
 import { useParams } from "react-router-dom";
-// import axios from "axios";
-
-const socket = io("http://localhost:3000");
+import socket from "../socket/socket.js";
 
 export const Chat = () => {
   const { konsultasiId } = useParams();
@@ -23,6 +20,7 @@ export const Chat = () => {
     }
 
     socket.on("receiveMessage", (msg) => {
+      console.log("Message received in frontend:", msg);
       setMessages((prev) => [...prev, msg]);
     });
 
@@ -38,8 +36,8 @@ export const Chat = () => {
         senderId: user.id,
         content: message,
       });
+      setMessage("");
     }
-    setMessage("");
   };
 
   return (
