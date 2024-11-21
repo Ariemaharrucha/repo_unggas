@@ -7,6 +7,7 @@ export const Chat = () => {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const konsultasi_id = parseInt(konsultasiId)
   // console.log(socket);
   
   useEffect(() => {
@@ -15,9 +16,9 @@ export const Chat = () => {
       setUser(JSON.parse(userData));
     }
 
-    if (konsultasiId) {
-      socket.emit("joinRoom", konsultasiId);
-    }
+    
+      socket.emit("joinRoom", konsultasi_id);
+    
 
     socket.on("receiveMessage", (msg) => {
       console.log("Message received in frontend:", msg);
@@ -27,12 +28,12 @@ export const Chat = () => {
     return () => {
       socket.off("receiveMessage");
     };
-  }, [konsultasiId]);
+  }, [konsultasi_id]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
       socket.emit("sendMessage", {
-        konsultasiId,
+        konsultasiId: konsultasi_id,
         senderId: user.id,
         content: message,
       });
