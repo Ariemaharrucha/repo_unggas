@@ -1,0 +1,17 @@
+POST http://localhost:3000/api/v1/login
+Content-Type: application/json
+
+{
+    "email": "ari@gmail.com",
+    "password": "amikomjogja"
+}
+
+### register
+POST http://localhost:3000/api/v1/register
+Content-Type: application/json
+
+{
+    "username": "abigael5",
+    "email": "abi5@gmail.com",
+    "password": "amikomjogja"
+}

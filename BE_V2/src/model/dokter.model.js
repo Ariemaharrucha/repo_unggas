@@ -1,0 +1,42 @@
+import { query } from "../config/db.js";
+
+const dokterModel = {
+
+  getAllDokter: async () => {
+    const sql = 
+      `SELECT 
+         u.user_id AS dokter_id, 
+         u.username AS nama_dokter, 
+         u.image_profile, 
+         d.spesialis, 
+         d.pengalaman, 
+         d.jam_kerja 
+       FROM dokter d
+       JOIN users u ON d.dokter_id = u.user_id
+       WHERE u.role = 'dokter'`;
+    const result = await query(sql);
+    return result;
+  },
+
+  createDokter: async (data) => {
+    const {
+      dokter_id,
+      nomer_str,
+      nomer_telepon,
+      spesialis,
+      pengalaman,
+      jam_kerja,
+    } = data;
+    const sqlQuery = `INSERT INTO dokter (dokter_id, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja) VALUES (?, ?, ?, ?, ?, ?)`;
+    return query(sqlQuery, [
+      dokter_id,
+      nomer_str,
+      nomer_telepon,
+      spesialis,
+      pengalaman,
+      jam_kerja,
+    ]);
+  },
+};
+
+export default dokterModel;

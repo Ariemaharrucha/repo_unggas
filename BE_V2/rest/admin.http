@@ -1,0 +1,43 @@
+POST http://localhost:3000/api/v1/admin/dokter
+Content-Type: application/json
+
+{
+    "username": "Dr.arie1",
+    "email": "ariddokter2@gmail.com",
+    "password": "dokterasli",
+    "nomer_str": "868686812",
+    "nomer_telepon": "086056561",
+    "image_dokter": null,
+    "spesialis": "bebek",
+    "jam_kerja": "08:00-15:00"
+}
+
+### create admin
+POST http://localhost:3000/api/v1/admin/createAdmin
+Content-Type: application/json
+
+{
+    "username": "admin1",
+    "email": "ariadmin@gmail.com",
+    "password": "admin"
+}
+
+### get all user & dokter
+GET http://localhost:3000/api/v1/admin/dokter
+
+### artikel
+POST http://localhost:3000/api/v1/admin/artikel
+Content-Type: application/json
+
+{
+    "author_id": 9,
+    "author_name": "arie2",
+    "judul_artikel": "kenapa ayam?",
+    "teks_artikel": "lorem ea ea aea eee aaaa",
+    "images_artikel": null,
+    "kategori_artikel": "pakan",
+    "tanggal_upload": "2024-11-14"
+}
+
+### delete artikel
+DELETE http://localhost:3000/api/v1/admin/artikel/15

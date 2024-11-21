@@ -1,0 +1,16 @@
+POST  http://localhost:3000/api/v1/dokter/artikel/
+Content-Type: application/json
+
+{
+    "author_id": 24,
+    "author_name": "arie",
+    "judul_artikel": "cara tagkap pokemon 9",
+    "teks_artikel": "lorem ea ea aea eee aaaa",
+    "images_artikel": null,
+    "kategori_artikel": "pakan",
+    "tanggal_upload": "2024-11-14"
+}
+
+
+### get artikel
+GET http://localhost:3000/api/v1/dokter/artikel/24
