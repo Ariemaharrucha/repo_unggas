@@ -21,9 +21,7 @@ const authService = {
 
       if (!result || result.length === 0) throw new Error("User not found");
       const user = result[0];
-      console.log(user);
-       
-
+      // console.log(user);
       const isPasswordMatch = await bcrypt.compare(password, user.password);
 
       if (!isPasswordMatch) throw new Error("Invalid password");
