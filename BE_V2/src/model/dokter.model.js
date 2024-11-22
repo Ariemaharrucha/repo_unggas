@@ -18,6 +18,22 @@ const dokterModel = {
     return result;
   },
 
+  getAllDokterForUser: async () => {
+    const sql = 
+      `SELECT 
+         u.user_id AS dokter_id, 
+         u.username AS nama_dokter, 
+         u.image_profile, 
+         d.spesialis, 
+         d.pengalaman, 
+         d.jam_kerja 
+       FROM dokter d
+       JOIN users u ON d.dokter_id = u.user_id
+       WHERE u.role = 'dokter'`;
+    const result = await query(sql);
+    return result;
+  },
+
   createDokter: async (data) => {
     const {
       dokter_id,

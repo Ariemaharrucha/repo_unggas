@@ -8,6 +8,11 @@ const dokterService = {
         return result;
     },
 
+    getAllDokterForUser: async () => {
+        const result = await dokterModel.getAllDokterForUser();
+        return result
+    },
+
     createArtikeldokter: async (data) => {
         const result = await artikelModel.createArtikel(data);
         return result;

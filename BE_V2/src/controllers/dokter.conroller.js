@@ -12,6 +12,16 @@ const dokterController = {
     }
   },
 
+  hanleGetAllDokterForUser: async (req, res) => {
+    try {
+      const result = await dokterService.getAllDokterForUser();
+      return res.status(200).json({ message: "success fetch", data: result});
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch" });
+    }
+  },
+
   handleCreateArtikeldokter: async (req, res) => {
     try {
       const result = await dokterService.createArtikeldokter(req.body);

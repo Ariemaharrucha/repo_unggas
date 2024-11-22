@@ -11,7 +11,8 @@ const adminService = {
   },
 
   getAllDokter: async () => {
-    return userModel.getAllDokter();
+    const result  = await dokterModel.getAllDokter();
+    return result
   },
 
   createAdmin: async (data) => {
