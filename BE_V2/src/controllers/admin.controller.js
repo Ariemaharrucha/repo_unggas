@@ -5,7 +5,7 @@ const adminController = {
   handleGetAllUser: async (req, res) => {
     try {
       const result = await adminService.getAllUser();
-      return res.status(200).json(result);
+      return res.status(200).json({ message: "success fetch", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error fetch user" });
@@ -15,7 +15,7 @@ const adminController = {
   handleCreateAdmin: async (req, res) => {  
     try {
       const result = await adminService.createAdmin(req.body);
-      return res.status(201).json(result);
+      return res.status(201).json({ message: "success create artikel", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error creating user" });
@@ -26,7 +26,7 @@ const adminController = {
   handleGetAllDokter: async (req, res) => {
     try {
       const result = await adminService.getAllDokter();
-      return res.status(200).json(result);
+      return res.status(200).json({ message: "success fetch dokter", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error fetch dokter" });
@@ -42,7 +42,7 @@ const adminController = {
     
     try {
       const result = await adminService.createDokter({username, email, password, nomer_str, nomer_telepon,image_profile: imageProfie, spesialis, pengalaman, jam_kerja});
-      return res.status(201).json(result);
+      return res.status(201).json({ message: "add dokter successfully", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error creating user" });
@@ -53,7 +53,7 @@ const adminController = {
   handleGetArtikel: async (req, res) => {
     try {
       const result = await adminService.getArtikel();
-      return res.status(200).json(result);
+      return res.status(200).json({ message: "success fetch", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error fetch artikel" });
@@ -67,7 +67,7 @@ const adminController = {
       if(!result) {
         throw new Error("artikel not found");
       }
-      return res.status(200).json(result)
+      return res.status(200).json({ message: "success get artikel", data: result})
     } catch (error) {
       console.log(error);
       return res.status(500).json({message: 'error get artikel'})      
@@ -81,7 +81,7 @@ const adminController = {
     
     try {
       const result = await adminService.createArtikel({...req.body, image_artikel: artikelImage});
-      return res.status(201).json(result);
+      return res.status(201).json({ message: "success create artikel", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error create artikel" });
@@ -95,7 +95,7 @@ const adminController = {
     const artikelImage = req.files.image_artikel ? `uploads/artikel/${req.files.image_artikel[0].filename}` : req.body.image_artikel;
     try {
       const result = await adminService.editArtikel(id, {...req.body, image_artikel: artikelImage})
-      return res.status(200).json(result);
+      return res.status(200).json({ message: "success edit artikel", data: result});
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error edit artikel" });

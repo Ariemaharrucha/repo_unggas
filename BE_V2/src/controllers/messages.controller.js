@@ -10,7 +10,7 @@ const messagesCotroller = {
         `SELECT sender_id, content, sent_at FROM messages WHERE konsultasi_id = ? ORDER BY sent_at ASC`,
         [konsultasiId]
       );
-      res.status(200).json([messages]);
+      res.status(200).json({ success: true, data: [messages] });
     } catch (error) {
       console.error(error);
       res
