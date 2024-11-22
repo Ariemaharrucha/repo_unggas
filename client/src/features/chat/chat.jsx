@@ -90,7 +90,7 @@ export const Chat = () => {
               {messages.map((msg, index) => (
                 <li key={index}>
                   <strong>
-                    {msg.senderId === user.id ? "You" : "dokter"}:
+                    {msg.senderId === user.id ? "anda" : "dokter"}:
                   </strong>{" "}
                   {msg.content}
                 </li>

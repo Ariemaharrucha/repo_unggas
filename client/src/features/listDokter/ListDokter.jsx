@@ -12,7 +12,7 @@ export const ListDokter = () => {
       const response = await axios.get(
         "http://localhost:3000/api/v1/dokter/list"
       );
-      // console.log(response.data.data);
+      // console.log(response.data.result);
       setDokter(response.data.data);
     };
     getDokter();
