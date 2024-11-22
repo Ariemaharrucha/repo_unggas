@@ -60,9 +60,9 @@ export const ChatDokter = () => {
 
 
   return (
-    <div className="flex">
-      <aside>
-        <h2>Users</h2>
+    <div className="flex p-6">
+      <aside className="border-r p-4 h-screen">
+        <h2>Users / pasien</h2>
         <ul>
           {users.map((user) => (
             <li
@@ -78,10 +78,10 @@ export const ChatDokter = () => {
           ))}
         </ul>
       </aside>
-      <section>
+      <section className="ps-3">
         {selectedUser ? (
           <>
-            <h2>Chat with {selectedUser.username}</h2>
+            <h2>Chat dengan {selectedUser.username}</h2>
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
