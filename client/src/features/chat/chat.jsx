@@ -9,8 +9,9 @@ export const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   // const [dokters, setDokters] = useState([]);
-  const [selectedDokter, setSelectedDokter] = useState(null);
+  // const [selectedDokter, setSelectedDokter] = useState(null);
   const konsultasi_id = parseInt(konsultasiId);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -37,7 +38,7 @@ export const Chat = () => {
           `http://localhost:3000/api/v1/konsultasi/dokter/${user?.id}`
         );
         // setDokters(response.data.data);
-        console.log((response.data));   
+        console.log(response.data);
       } catch (error) {
         console.error("Failed to fetch dokters:", error);
       }
@@ -45,11 +46,28 @@ export const Chat = () => {
     fetchDokters();
   }, [user?.id]);
 
-  function handleSelectDokter(dokter) {
-    setSelectedDokter(dokter);
-    setMessages([]);
-    console.log(dokter);
-  }
+  // function handleSelectDokter(dokter) {
+  //   setSelectedDokter(dokter);
+  //   setMessages([]);
+  //   console.log(dokter);
+  // }
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/messages/${konsultasi_id}`
+        );
+        setMessages(response.data.data);
+      } catch (error) {
+        console.error("Failed to fetch messages:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMessages();
+  }, [konsultasi_id]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -76,16 +94,17 @@ export const Chat = () => {
         </ul>
       </div>
       <div className="p-4">
-        {/* {selectedDokter && (
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+        />
+        <button onClick={handleSendMessage}>Send</button>
+        <h2 className="mt-2">Chat</h2>
+        {loading ? (
+          <p>Loading messages...</p>
+        ) : (
           <>
-            <h2>{selectedDokter.username}</h2> */}
-            <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type a message..."
-            />
-            <button onClick={handleSendMessage}>Send</button>
-            <h2 className="mt-2">Chat</h2>
             <ul>
               {messages.map((msg, index) => (
                 <li key={index}>
@@ -96,8 +115,8 @@ export const Chat = () => {
                 </li>
               ))}
             </ul>
-          {/* </>
-        )} */}
+          </>
+        )}
       </div>
     </div>
   );
