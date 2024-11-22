@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ListDokter = () => {
   const navigate = useNavigate();
@@ -24,20 +24,24 @@ export const ListDokter = () => {
   }, []);
 
   async function handleCreateKonsultasi(user_id, dokter_id) {
-    // console.log(user_id, dokter_id);
-    
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/konsultasi",
-      {
-        user_id: user_id,
-        dokter_id: dokter_id,
+    console.log(user_id, dokter_id);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/konsultasi/findOrCreate",
+        {
+          user_id,
+          dokter_id,
+        }
+      );
+      const roomId = response.data.data;
+
+      if (roomId) {
+        navigate(`/chat-apps/chat/${roomId}`);
       }
-    );
-    const konsultasiId = response.data.data;
-    // console.log(konsultasiId);
-    
-    if (konsultasiId) {
-      navigate(`/chat-apps/chat/${konsultasiId}`);
+    } catch (error) {
+      console.error("Error handling konsultasi:", error);
+      alert("Terjadi kesalahan saat memulai chat.");
     }
   }
   return (
@@ -60,7 +64,12 @@ export const ListDokter = () => {
                     alt=""
                   />
                 </li>
-                <button className="px-4 py-2 bg-blue-500 text-white" onClick={() => handleCreateKonsultasi(user.id, dokterItem.dokter_id)}>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white"
+                  onClick={() =>
+                    handleCreateKonsultasi(user.id, dokterItem.dokter_id)
+                  }
+                >
                   Chat
                 </button>
               </div>

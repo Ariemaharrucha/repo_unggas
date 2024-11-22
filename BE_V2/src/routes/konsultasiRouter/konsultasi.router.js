@@ -3,4 +3,7 @@ import express from 'express';
 
 export const konsultasiRouter = express.Router();
 
-konsultasiRouter.post("/konsultasi", konsultasiController.createKonsultasi);
+
+konsultasiRouter.post("/konsultasi/findOrCreate", konsultasiController.findOrCreateKonsultasi);
+konsultasiRouter.get("/konsultasi/dokter/:user_id", konsultasiController.getDokterForUser);
+
