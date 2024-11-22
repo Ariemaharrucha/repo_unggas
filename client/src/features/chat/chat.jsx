@@ -37,7 +37,7 @@ export const Chat = () => {
           `http://localhost:3000/api/v1/konsultasi/dokter/${user?.id}`
         );
         // setDokters(response.data.data);
-        console.log((response.data.data));   
+        console.log((response.data));   
       } catch (error) {
         console.error("Failed to fetch dokters:", error);
       }

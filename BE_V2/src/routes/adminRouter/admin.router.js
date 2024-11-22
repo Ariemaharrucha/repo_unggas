@@ -4,16 +4,16 @@ import upload from '../../middleware/upload.middleware.js';
 
 export const adminRouter = express.Router();
 
-adminRouter.post('/admin/create-admin', adminController.createAdmin);
-adminRouter.get('/admin/user', adminController.getAllUser);
+adminRouter.post('/admin/create-admin', adminController.handleCreateAdmin);
+adminRouter.get('/admin/user', adminController.handleGetAllUser);
 
 // artikel
-adminRouter.get('/admin/artikel', adminController.getArtikel);
-adminRouter.get('/admin/artikel/:id', adminController.getArtikelId);
-adminRouter.post('/admin/artikel', upload, adminController.createArtikel);
-adminRouter.put('/admin/artikel/:id', upload, adminController.editArtikel);
-adminRouter.delete('/admin/artikel/:id', adminController.deleteArtkel);
+adminRouter.get('/admin/artikel', adminController.handleGetArtikel);
+adminRouter.get('/admin/artikel/:id', adminController.handleGetArtikelId);
+adminRouter.post('/admin/artikel', upload, adminController.handleCreateArtikel);
+adminRouter.put('/admin/artikel/:id', upload, adminController.handleEditArtikel);
+adminRouter.delete('/admin/artikel/:id', adminController.handleDeleteArtkel);
 
 // dokter
-adminRouter.post('/admin/dokter', upload, adminController.createDokter);
-adminRouter.get('/admin/dokter', adminController.getAllDokter);
+adminRouter.post('/admin/dokter', upload, adminController.handleCreateDokter);
+adminRouter.get('/admin/dokter', adminController.handleGetAllDokter);

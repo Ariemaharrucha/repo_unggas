@@ -23,7 +23,7 @@ const konsultasiController = {
       const result = await konsultasiService.getDokterForUser(user_id);
       res
         .status(200)
-        .json({ message: "Succes for List of doctors for user", data: result });
+        .json(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error fetching doctor list" });

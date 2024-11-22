@@ -5,7 +5,7 @@ const dokterController = {
   hanleGetAllDokter: async (req, res) => {
     try {
       const result = await dokterService.getAllDokter();
-      return res.status(200).json({ message: "success fetch", data: result });
+      return res.status(200).json(result);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error fetch" });
@@ -15,7 +15,7 @@ const dokterController = {
   handleCreateArtikeldokter: async (req, res) => {
     try {
       const dokter = await dokterService.createArtikeldokter(req.body);
-      return res.status(201).json({ message: "success create artikel", data: dokter });
+      return res.status(201).json(dokter);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error creating user" });
@@ -26,7 +26,7 @@ const dokterController = {
     const { id } = req.params;
     try {
       const result = await dokterService.getArtikeldokter(id);
-      return res.status(200).json({ message: "success fetch", data: result });
+      return res.status(200).json(result);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error fetch" });
@@ -37,7 +37,7 @@ const dokterController = {
     const { dokterId } = req.params;
     try {
       const users = await dokterService.getUserForDokter(dokterId)
-      res.status(200).json({ data: users });
+      res.status(200).json(users);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error fetching users" });
