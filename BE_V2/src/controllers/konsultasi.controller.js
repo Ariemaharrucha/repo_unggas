@@ -18,7 +18,7 @@ const konsultasiController = {
   },
 
   getDokterForUser: async (req, res) => {
-    const { user_id } = req.body;
+    const { user_id } = req.params;
     try {
       const result = await konsultasiService.getDokterForUser(user_id);
       res
