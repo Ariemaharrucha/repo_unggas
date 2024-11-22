@@ -8,10 +8,9 @@ export const Chat = () => {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [dokters, setDokters] = useState([]);
+  // const [dokters, setDokters] = useState([]);
   const [selectedDokter, setSelectedDokter] = useState(null);
   const konsultasi_id = parseInt(konsultasiId);
-  // console.log(socket);
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -37,7 +36,8 @@ export const Chat = () => {
         const response = await axios.get(
           `http://localhost:3000/api/v1/konsultasi/dokter/${user?.id}`
         );
-        setDokters(response.data.data);
+        // setDokters(response.data.data);
+        console.log((response.data.data));   
       } catch (error) {
         console.error("Failed to fetch dokters:", error);
       }
@@ -45,15 +45,10 @@ export const Chat = () => {
     fetchDokters();
   }, [user?.id]);
 
-  useEffect(() => {
-
-  })
-
   function handleSelectDokter(dokter) {
     setSelectedDokter(dokter);
     setMessages([]);
     console.log(dokter);
-    
   }
 
   const handleSendMessage = () => {
@@ -72,18 +67,18 @@ export const Chat = () => {
       <div className="w-[200px] h-screen p-4">
         <h1>list dokter</h1>
         <ul>
-          {dokters &&
+          {/* {dokters &&
             dokters.map((dokter) => (
               <li key={dokter.id} onClick={() => handleSelectDokter(dokter)}>
                 {dokter.username}
               </li>
-            ))}
+            ))} */}
         </ul>
       </div>
       <div className="p-4">
-        {selectedDokter && (
+        {/* {selectedDokter && (
           <>
-            <h2>{selectedDokter.username}</h2>
+            <h2>{selectedDokter.username}</h2> */}
             <input
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -95,14 +90,14 @@ export const Chat = () => {
               {messages.map((msg, index) => (
                 <li key={index}>
                   <strong>
-                    {msg.senderId === user.id ? "You" : selectedDokter.username}:
+                    {msg.senderId === user.id ? "You" : "dokter"}:
                   </strong>{" "}
                   {msg.content}
                 </li>
               ))}
             </ul>
-          </>
-        )}
+          {/* </>
+        )} */}
       </div>
     </div>
   );

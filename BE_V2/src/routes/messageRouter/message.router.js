@@ -3,4 +3,4 @@ import express from 'express';
 
 export const messageRouter =express.Router();
 
-messageRouter.get('/messages/:konsultasiId', messagesCotroller.getMessgaesByIdkonsultasiId)
+messageRouter.get('/messages/:konsultasiId', messagesCotroller.handleGetMessgaesByIdkonsultasiId)

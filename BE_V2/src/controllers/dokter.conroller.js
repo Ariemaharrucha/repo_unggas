@@ -2,7 +2,7 @@ import { query } from "../config/db.js";
 import dokterService from "../services/dokter.service.js";
 
 const dokterController = {
-  getAllDokter: async (req, res) => {
+  hanleGetAllDokter: async (req, res) => {
     try {
       const result = await dokterService.getAllDokter();
       return res.status(200).json({ message: "success fetch", data: result });
@@ -12,7 +12,7 @@ const dokterController = {
     }
   },
 
-  createArtikeldokter: async (req, res) => {
+  handleCreateArtikeldokter: async (req, res) => {
     try {
       const dokter = await dokterService.createArtikeldokter(req.body);
       return res.status(201).json({ message: "success create artikel", data: dokter });
@@ -22,7 +22,7 @@ const dokterController = {
     }
   },
 
-  getArtikeldokter: async (req, res) => {
+  handleGetArtikeldokter: async (req, res) => {
     const { id } = req.params;
     try {
       const result = await dokterService.getArtikeldokter(id);
@@ -33,16 +33,10 @@ const dokterController = {
     }
   },
 
-  getUsersForDokter: async (req, res) => {
+  hanleGetUsersForDokter: async (req, res) => {
     const { dokterId } = req.params;
     try {
-      const sql = `
-        SELECT u.user_id AS id, u.username, k.konsultasi_id 
-        FROM konsultasi k
-        JOIN users u ON k.user_id = u.user_id
-        WHERE k.dokter_id = ?
-      `;
-      const users = await query(sql, [dokterId]);
+      const users = await dokterService.getUserForDokter(dokterId)
       res.status(200).json({ data: users });
     } catch (error) {
       console.error(error);

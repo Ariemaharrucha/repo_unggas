@@ -12,10 +12,16 @@ const dokterService = {
         const result = await artikelModel.createArtikel(data);
         return result;
     },
+
     getArtikeldokter: async (id) => {
         const result = await artikelModel.getArtikelByAuthorId(id);
         return result;
     },
+
+    getUserForDokter: async (dokterId) => {
+        const result = await dokterModel.getUserForDokter(dokterId);
+        return result;
+    }
 };
 
 export default dokterService;
