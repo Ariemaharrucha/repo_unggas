@@ -27,6 +27,8 @@ const dokterService = {
           spesialis,
           pengalaman,
           jam_kerja,
+          alumni,
+          tempat_praktek
         } = data;
     
         const cekEmail = await userModel.getUserByEmail(email);
@@ -55,6 +57,8 @@ const dokterService = {
           spesialis,
           pengalaman,
           jam_kerja,
+          alumni,
+          tempat_praktek
         });
         return newDokter;
     },

@@ -42,8 +42,10 @@ const dokterModel = {
       spesialis,
       pengalaman,
       jam_kerja,
+      alumni,
+      tempat_praktek
     } = data;
-    const sqlQuery = `INSERT INTO dokter (dokter_id, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja) VALUES (?, ?, ?, ?, ?, ?)`;
+    const sqlQuery = `INSERT INTO dokter (dokter_id, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     return query(sqlQuery, [
       dokter_id,
       nomer_str,
@@ -51,6 +53,8 @@ const dokterModel = {
       spesialis,
       pengalaman,
       jam_kerja,
+      alumni,
+      tempat_praktek
     ]);
   },
 
