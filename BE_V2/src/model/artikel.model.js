@@ -10,8 +10,9 @@ const artikelModel = {
       kategori,
       tanggal,
       author_id,
+      role
     } = data;
-    const sqlQuery = `INSERT INTO artikel (judul, author_name, konten, image_artikel, kategori, tanggal, author_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const sqlQuery = `INSERT INTO artikel (judul, author_name, konten, image_artikel, kategori, tanggal, author_id, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     return await query(sqlQuery, [
       judul,
       author_name,
@@ -20,6 +21,7 @@ const artikelModel = {
       kategori,
       tanggal,
       author_id,
+      role
     ]);
   },
 
@@ -46,8 +48,9 @@ const artikelModel = {
       image_artikel,
       kategori,
       tanggal,
+      role
     } = data;
-    const sqlQuery = `UPDATE artikel SET judul = ?, author_name = ?, konten = ?, image_artikel = ?, kategori = ?, tanggal = ? WHERE artikel_id = ?`;
+    const sqlQuery = `UPDATE artikel SET judul = ?, author_name = ?, konten = ?, image_artikel = ?, kategori = ?, tanggal = ?, role = ? WHERE artikel_id = ?`;
     return await query(sqlQuery, [
       judul,
       author_name,
@@ -55,6 +58,7 @@ const artikelModel = {
       image_artikel,
       kategori,
       tanggal,
+      role,
       id,
     ]);
   },
