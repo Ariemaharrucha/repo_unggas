@@ -5,8 +5,11 @@ import upload from '../../middleware/upload.middleware.js';
 
 export const dokterRouter = express.Router();
 
-dokterRouter.post('/dokter/artikel', upload, artikeController.handleCreateArtikel  );
-dokterRouter.get('/dokter/artikel/:id', dokterController.handleGetArtikelDokter );
+dokterRouter.get('/dokter/artikel/:id', dokterController.handleGetArtikelDokter);
+dokterRouter.get('/dokter/artikel/:id', artikeController.handleGetArtikelId);
+dokterRouter.post('/dokter/artikel', upload, artikeController.handleCreateArtikel);
+dokterRouter.put('/dokter/artikel/:id', upload, artikeController.handleEditArtikel);
+dokterRouter.delete('/dokter/artikel/:id', artikeController.handleDeleteArtkel);
 
 // client
 dokterRouter.get("/dokter/list", dokterController.hanleGetAllDokterForUser);
