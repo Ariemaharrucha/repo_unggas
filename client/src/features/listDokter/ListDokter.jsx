@@ -51,15 +51,17 @@ export const ListDokter = () => {
         <ul className="flex gap-10">
           {dokter.map((dokterItem) => {
             return (
-              <div key={dokterItem.dokter_id}>
-                <li>{dokterItem.nama_dokter}</li>
-                <li>{dokterItem.spesialis}</li>
-                <li>{dokterItem.pengalaman}</li>
-                <li>{dokterItem.jam_kerja}</li>
+              <div key={dokterItem?.dokter_id}>
+                <li>{dokterItem?.nama_dokter}</li>
+                <li>{dokterItem?.spesialis}</li>
+                <li>{dokterItem?.pengalaman}</li>
+                <li>{dokterItem?.jam_kerja}</li>
+                <li>{dokterItem?.alumni}</li>
+                <li>{dokterItem?.tempat_praktek}</li>
                 <li>
                   <img
                     className="size-10"
-                    src={`http://localhost:3000/${dokterItem.image_profile}`}
+                    src={`http://localhost:3000/${dokterItem?.image_profile}`}
                     alt=""
                   />
                 </li>
