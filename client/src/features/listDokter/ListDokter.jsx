@@ -12,7 +12,6 @@ export const ListDokter = () => {
       const response = await axios.get(
         "http://localhost:3000/api/v1/dokter/list"
       );
-      // console.log(response.data.result);
       setDokter(response.data.data);
     };
     getDokter();
@@ -23,7 +22,7 @@ export const ListDokter = () => {
     }
   }, []);
 
-  async function handleCreateKonsultasi(user_id, dokter_id) {
+  async function handleCreateKonsultasi(user_id, dokter_id, nama_dokter) {
     console.log(user_id, dokter_id);
 
     try {
@@ -37,7 +36,7 @@ export const ListDokter = () => {
       const roomId = response.data.data;
 
       if (roomId) {
-        navigate(`/chat-apps/chat/${roomId}`);
+        navigate(`/chat-apps/chat/${roomId}`, {state: {nama_dokter}});
       }
     } catch (error) {
       console.error("Error handling konsultasi:", error);
@@ -67,7 +66,7 @@ export const ListDokter = () => {
                 <button
                   className="px-4 py-2 bg-blue-500 text-white"
                   onClick={() =>
-                    handleCreateKonsultasi(user.id, dokterItem.dokter_id)
+                    handleCreateKonsultasi(user.id, dokterItem.dokter_id, dokterItem.nama_dokter)
                   }
                 >
                   Chat

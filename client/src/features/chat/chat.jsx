@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import socket from "../socket/socket.js";
 import axios from "axios";
 
 export const Chat = () => {
   const { konsultasiId } = useParams();
+  const location = useLocation()
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  // const [dokters, setDokters] = useState([]);
-  // const [selectedDokter, setSelectedDokter] = useState(null);
   const konsultasi_id = parseInt(konsultasiId);
   const [loading, setLoading] = useState(false);
+  const namaDokter = location.state?.nama_dokter || "Dokter Tidak Diketahui";
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -46,12 +46,6 @@ export const Chat = () => {
     fetchDokters();
   }, [user?.id]);
 
-  // function handleSelectDokter(dokter) {
-  //   setSelectedDokter(dokter);
-  //   setMessages([]);
-  //   console.log(dokter);
-  // }
-
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -82,18 +76,8 @@ export const Chat = () => {
 
   return (
     <div className="flex ">
-      <div className="w-[200px] h-screen p-4">
-        <h1>list dokter</h1>
-        <ul>
-          {/* {dokters &&
-            dokters.map((dokter) => (
-              <li key={dokter.id} onClick={() => handleSelectDokter(dokter)}>
-                {dokter.username}
-              </li>
-            ))} */}
-        </ul>
-      </div>
       <div className="p-4">
+        <h1>{namaDokter}</h1>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
