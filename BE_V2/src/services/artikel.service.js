@@ -18,6 +18,7 @@ const artikelService= {
       kategori,
       tanggal,
       author_id,
+      role
     } = data;
     console.log(data);
     
@@ -29,6 +30,7 @@ const artikelService= {
       kategori,
       tanggal,
       author_id,
+      role
     });
   },
 
@@ -41,6 +43,7 @@ const artikelService= {
       kategori,
       tanggal,
       author_id,
+      role
     } = data;
     if (!judul || !konten || !kategori) {
       throw new Error("Judul, teks, dan kategori artikel harus diisi.");
@@ -56,6 +59,11 @@ const artikelService= {
     }
     return artikelModel.deleteArtikel(id);
   },
+
+  getArtikelForUser: async () => {
+    const result = await artikelModel.getArtikeForUser();
+    return result;
+  }
 }
 
 export default artikelService;

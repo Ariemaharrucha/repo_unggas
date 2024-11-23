@@ -7,7 +7,7 @@ const userModel = {
   },
 
   getUserById: async (id) => {
-    const sqlQuery = `SELECT * FROM users WHERE id = ?`;
+    const sqlQuery = `SELECT * FROM users WHERE user_id = ?`;
     return await query(sqlQuery, [id]);
   },
 
@@ -23,9 +23,9 @@ const userModel = {
   },
 
   editUser: async (id, data) => {
-    const { username, email, password, role } = data;
-    const sqlQuery = `UPDATE users SET username = ?, email = ?, password = ?, role = ? WHERE id = ?`;
-    return await query(sqlQuery, [username, email, password, role, id]);
+    const { username, email, password, image_profile } = data;
+    const sqlQuery = `UPDATE users SET username = ?, email = ?, password = ?, image_profile = ? WHERE user_id = ?`;
+    return await query(sqlQuery, [username, email, password, image_profile, id]);
   },
 
   deleteUser: async (id) => {

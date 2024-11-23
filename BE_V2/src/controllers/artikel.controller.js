@@ -82,6 +82,16 @@ const artikeController = {
       return res.status(500).json({ message: "Error create artikel" });
     }
   },
+
+  handleGetArtikelForUSer: async (req, res) => {
+    try {
+      const result = await artikelService.getArtikelForUser();
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  }
 };
 
 export default artikeController

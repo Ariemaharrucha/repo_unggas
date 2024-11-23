@@ -32,7 +32,7 @@ export const ChatDokter = () => {
     };
     fetchUsers();
   }, [dokter?.id]);
-
+  
   useEffect(() => {
     const fetchMessages = async () => {
       if (selectedUser?.konsultasi_id) {
@@ -57,19 +57,19 @@ export const ChatDokter = () => {
   useEffect(() => {
     if (selectedUser?.konsultasi_id) {
       socket.emit("joinRoom", selectedUser.konsultasi_id);
-  
+
       const handleReceiveMessage = (msg) => {
         console.log("Message received in frontend:", msg);
         setMessages((prev) => [...prev, msg]);
       };
-  
+
       socket.on("receiveMessage", handleReceiveMessage);
       return () => {
         socket.off("receiveMessage", handleReceiveMessage);
       };
     }
   }, [selectedUser?.konsultasi_id]);
-  
+
   const handleSendMessage = () => {
     if (message.trim()) {
       socket.emit("sendMessage", {
@@ -87,34 +87,52 @@ export const ChatDokter = () => {
         <h2>Users / pasien</h2>
         <ul>
           {users.map((user) => (
-            <li
-              key={user.id}
-              onClick={() => {
-                if (selectedUser?.id !== user.id) {
-                  setSelectedUser(user);
-                  setMessages([]);
-                }
-              }}
-            >
-              {user.username}
-            </li>
+              <div key={user.id} className="flex gap-4">
+                <div className="size-10">
+                  <img
+                    src={`http://localhost:3000/${user.image_profile}`}
+                    alt="image profile"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div
+                  onClick={() => {
+                    if (selectedUser?.id !== user.id) {
+                      setSelectedUser(user);
+                      setMessages([]);
+                      console.log(user);
+                    }
+                  }}
+                >
+                  {user.username}
+                </div>
+              </div>
           ))}
         </ul>
       </aside>
       <section className="ps-3">
         {selectedUser ? (
           <>
+            <div className="flex gap-4">
+            <div className="size-10">
+                  <img
+                    src={`http://localhost:3000/${selectedUser.image_profile}`}
+                    alt="image profile"
+                    className="h-full w-full object-cover"
+                  />
+            </div>
             <h2>Chat dengan {selectedUser.username}</h2>
+            </div>
             <input
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Type a message..."
-                />
-                <button onClick={handleSendMessage}>Send</button>
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type a message..."
+            />
+            <button onClick={handleSendMessage}>Send</button>
             {loading ? (
               <p>Loading messages...</p>
             ) : (
-              <>          
+              <>
                 <ul>
                   {messages.map((msg, index) => (
                     <li key={index}>

@@ -12,7 +12,10 @@ export const Chat = () => {
   const konsultasi_id = parseInt(konsultasiId);
   const [loading, setLoading] = useState(false);
   const namaDokter = location.state?.nama_dokter || "Dokter Tidak Diketahui";
-
+  const spesialisDokter = location.state?.spesialis || "spesialis Tidak Diketahui";
+  const imageProfile = location.state?.image_profile || "image profile Tidak Diketahui";
+  
+  
   useEffect(() => {
     const userData = localStorage.getItem("user");
     if (userData) {
@@ -77,7 +80,11 @@ export const Chat = () => {
   return (
     <div className="flex ">
       <div className="p-4">
+        <div className="size-10">
+          <img src={`http://localhost:3000/${imageProfile}`} alt="image profile dokter" className="object-cover h-full w-full"/>
+        </div>
         <h1>{namaDokter}</h1>
+        <h2>spesialis: {spesialisDokter}</h2>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}

@@ -4,6 +4,8 @@ import { Register } from '../features/auth/register.jsx';
 import { ListDokter } from '../features/listDokter/ListDokter.jsx';
 import { ChatDokter } from '../features/chat-dokter/ChatDokter.jsx';
 import { Chat } from '../features/chat/chat.jsx';
+import { Artikel } from '../features/artikel/Artikel.jsx';
+import { ArtikelDetails } from '../features/artikel/ArtikelDetails.jsx';
 
 export const AppRouter = () => {
     return (
@@ -13,7 +15,9 @@ export const AppRouter = () => {
             <Route path='/register' element={<Register/>}/>
             <Route path='/chat-apps/list-dokter' element={<ListDokter/>}/>
             <Route path='/chat-apps/chat/:konsultasiId' element={<Chat/>}/>
-            <Route path='/chat-apps/dokter-chat' element={<ChatDokter/>}/>            
+            <Route path='/chat-apps/dokter-chat' element={<ChatDokter/>}/>
+            <Route path='/artikel' element={<Artikel/>}/>
+            <Route path='/artikel/details/:id' element={<ArtikelDetails/>}/>      
         </Routes>
       </BrowserRouter>
     );

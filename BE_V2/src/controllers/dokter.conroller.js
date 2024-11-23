@@ -2,14 +2,14 @@ import dokterService from "../services/dokter.service.js";
 
 const dokterController = {
   handleCreateDokter: async (req, res) => {
-    const {username, email, password, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja} = req.body;
+    const {username, email, password, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek} = req.body;
     const imageProfie = req.files.image_profile
       ? `uploads/userProfile/${req.files.image_profile[0].filename}`
       : null;
     console.log(imageProfie);
     
     try {
-      const result = await dokterService.createDokter({username, email, password, nomer_str, nomer_telepon,image_profile: imageProfie, spesialis, pengalaman, jam_kerja});
+      const result = await dokterService.createDokter({username, email, password, nomer_str, nomer_telepon,image_profile: imageProfie, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek});
       return res.status(201).json({ message: "add dokter successfully", data: result});
     } catch (error) {
       console.error(error);
@@ -45,6 +45,28 @@ const dokterController = {
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error fetching users" });
+    }
+  },
+
+  handleGetDetailDokter: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const result = await dokterService.getDetailDokter(id);
+      res.status(200).json({ message: "success get users", data: result});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching users" });
+    }
+  },
+
+  handleEditDetailDokter: async (req, res) => {
+    const {id} = req.params;  
+    try {
+      const result = await dokterService.editDataDiriDokter(id, req.body);
+      return res.status(201).json({ message: "edit details dokter successfully", data: result});
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error creating user" });
     }
   },
 
