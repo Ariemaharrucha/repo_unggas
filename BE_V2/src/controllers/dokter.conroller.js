@@ -48,6 +48,28 @@ const dokterController = {
     }
   },
 
+  handleGetDetailDokter: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const result = await dokterService.getDetailDokter(id);
+      res.status(200).json({ message: "success get users", data: result});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching users" });
+    }
+  },
+
+  handleEditDetailDokter: async (req, res) => {
+    const {id} = req.params;  
+    try {
+      const result = await dokterService.editDataDiriDokter(id, req.body);
+      return res.status(201).json({ message: "edit details dokter successfully", data: result});
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error creating user" });
+    }
+  },
+
   handleGetArtikelDokter: async (req, res) => {
     const {id} = req.params;
     try {

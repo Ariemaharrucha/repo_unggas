@@ -60,6 +60,17 @@ const dokterModel = {
     ]);
   },
 
+  getDetailDokterById: async (id) => {
+    const sql = `SELECT * FROM dokter WHERE dokter_id = ?`;
+    return query(sql, [id]);
+  },
+
+  editDokter: async (id, data) => {
+    const { nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek } = data;
+    const sqlQuery = `UPDATE dokter SET nomer_str = ?, nomer_telepon = ?, spesialis = ?, pengalaman = ?, jam_kerja = ?, alumni = ?, tempat_praktek = ? WHERE dokter_id = ?`;
+    return query(sqlQuery, [nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek, id]);
+  },
+
   getUserForDokter: async (dokterId) => {
     const sql = `SELECT u.user_id AS id, u.username, u.image_profile, k.konsultasi_id 
         FROM konsultasi k

@@ -16,6 +16,11 @@ const dokterService = {
         return result
     },
 
+    getDetailDokter: async (id) => {
+      const result = await dokterModel.getDetailDokterById(id);
+      return result;
+    },
+
     createDokter: async (data) => {
         const {
           username,
@@ -61,6 +66,14 @@ const dokterService = {
           tempat_praktek
         });
         return newDokter;
+    },
+
+    editDataDiriDokter: async (id, data) => {
+      const { nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek } = data;
+      if(!nomer_str || !nomer_telepon || !spesialis || !pengalaman || !jam_kerja || !alumni || !tempat_praktek) {
+        throw new Error("Semua kolom harus diisi");
+      }
+      const result = await dokterModel.editDokter(id, { nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek });
     },
 
     getArtikeldokter: async (id) => {
