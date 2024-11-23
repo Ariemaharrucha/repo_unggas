@@ -6,11 +6,6 @@ const userModel = {
     return await query(sqlQuery);
   },
 
-  getAllDokter: async () => {
-    const sqlQuery = `SELECT * FROM users WHERE role = "dokter"`;
-    return query(sqlQuery);
-  },
-
   getUserById: async (id) => {
     const sqlQuery = `SELECT * FROM users WHERE id = ?`;
     return await query(sqlQuery, [id]);

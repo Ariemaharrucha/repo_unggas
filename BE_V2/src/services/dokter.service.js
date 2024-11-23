@@ -1,5 +1,8 @@
 import artikelModel from "../model/artikel.model.js";
 import dokterModel from "../model/dokter.model.js";
+import userModel from "../model/user.model.js";
+import bcrypt from 'bcrypt'
+import { query } from "../config/db.js";
 
 const dokterService = {
 
@@ -8,14 +11,63 @@ const dokterService = {
         return result;
     },
 
-    createArtikeldokter: async (data) => {
-        const result = await artikelModel.createArtikel(data);
-        return result;
+    getAllDokterForUser: async () => {
+        const result = await dokterModel.getAllDokterForUser();
+        return result
     },
+
+    createDokter: async (data) => {
+        const {
+          username,
+          email,
+          password,
+          image_profile,
+          nomer_str,
+          nomer_telepon,
+          spesialis,
+          pengalaman,
+          jam_kerja,
+        } = data;
+    
+        const cekEmail = await userModel.getUserByEmail(email);
+        const cekNomerStr = await query(
+          `SELECT * FROM dokter WHERE nomer_str = ?`,
+          [nomer_str]
+        );
+    
+        if (cekEmail.length > 0 || cekNomerStr.length > 0)
+          throw new Error("Email already and Nomer Str exists");
+    
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newDokter = await userModel.createUser({
+          username,
+          email,
+          password: hashedPassword,
+          image_profile,
+          role: "dokter",
+        });
+        console.log(newDokter);
+    
+        await dokterModel.createDokter({
+          dokter_id: newDokter.insertId,
+          nomer_str,
+          nomer_telepon,
+          spesialis,
+          pengalaman,
+          jam_kerja,
+        });
+        return newDokter;
+    },
+
     getArtikeldokter: async (id) => {
         const result = await artikelModel.getArtikelByAuthorId(id);
         return result;
     },
+
+    getUserForDokter: async (dokterId) => {
+        const result = await dokterModel.getUserForDokter(dokterId);
+        return result;
+    }
 };
 
 export default dokterService;

@@ -8,6 +8,7 @@ export const ChatDokter = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const dokterData = localStorage.getItem("user");
@@ -33,20 +34,42 @@ export const ChatDokter = () => {
   }, [dokter?.id]);
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      if (selectedUser?.konsultasi_id) {
+        try {
+          setLoading(true);
+          const response = await axios.get(
+            `http://localhost:3000/api/v1/messages/${selectedUser.konsultasi_id}`
+          );
+          setMessages(response.data.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Failed to fetch messages:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchMessages();
+  }, [selectedUser?.konsultasi_id]);
+
+  useEffect(() => {
     if (selectedUser?.konsultasi_id) {
       socket.emit("joinRoom", selectedUser.konsultasi_id);
-
-      socket.on("receiveMessage", (msg) => {
+  
+      const handleReceiveMessage = (msg) => {
         console.log("Message received in frontend:", msg);
         setMessages((prev) => [...prev, msg]);
-      });
-
+      };
+  
+      socket.on("receiveMessage", handleReceiveMessage);
       return () => {
-        socket.off("receiveMessage");
+        socket.off("receiveMessage", handleReceiveMessage);
       };
     }
   }, [selectedUser?.konsultasi_id]);
-
+  
   const handleSendMessage = () => {
     if (message.trim()) {
       socket.emit("sendMessage", {
@@ -58,7 +81,6 @@ export const ChatDokter = () => {
     setMessage("");
   };
 
-
   return (
     <div className="flex p-6">
       <aside className="border-r p-4 h-screen">
@@ -68,9 +90,10 @@ export const ChatDokter = () => {
             <li
               key={user.id}
               onClick={() => {
-                setSelectedUser(user);
-                setMessages([]);
-                console.log(selectedUser);
+                if (selectedUser?.id !== user.id) {
+                  setSelectedUser(user);
+                  setMessages([]);
+                }
               }}
             >
               {user.username}
@@ -83,21 +106,30 @@ export const ChatDokter = () => {
           <>
             <h2>Chat dengan {selectedUser.username}</h2>
             <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type a message..."
-            />
-            <button onClick={handleSendMessage}>Send</button>
-            <ul>
-              {messages.map((msg, index) => (
-                <li key={index}>
-                  <strong>
-                    {msg.senderId === dokter.id ? "You" : selectedUser.username}:
-                  </strong>{" "}
-                  {msg.content}
-                </li>
-              ))}
-            </ul>          
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Type a message..."
+                />
+                <button onClick={handleSendMessage}>Send</button>
+            {loading ? (
+              <p>Loading messages...</p>
+            ) : (
+              <>          
+                <ul>
+                  {messages.map((msg, index) => (
+                    <li key={index}>
+                      <strong>
+                        {msg.senderId === dokter.id
+                          ? "Anda"
+                          : selectedUser.username}
+                        :
+                      </strong>{" "}
+                      {msg.content}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </>
         ) : (
           <p>Select user to start chatting.</p>
