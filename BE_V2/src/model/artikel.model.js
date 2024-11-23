@@ -67,6 +67,11 @@ const artikelModel = {
     const sqlQuery = `DELETE FROM artikel WHERE artikel_id = ?`;
     return await query(sqlQuery, [id]);
   },
+
+  getArtikeForUser: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, kategori, tanggal FROM artikel`;
+    return await query(sqlQuery);
+  }
 };
 
 export default artikelModel;

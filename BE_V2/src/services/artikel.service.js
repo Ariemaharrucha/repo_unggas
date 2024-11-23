@@ -59,6 +59,11 @@ const artikelService= {
     }
     return artikelModel.deleteArtikel(id);
   },
+
+  getArtikelForUser: async () => {
+    const result = await artikelModel.getArtikeForUser();
+    return result;
+  }
 }
 
 export default artikelService;
