@@ -22,7 +22,7 @@ export const ListDokter = () => {
     }
   }, []);
 
-  async function handleCreateKonsultasi(user_id, dokter_id, nama_dokter) {
+  async function handleCreateKonsultasi(user_id, dokter_id, nama_dokter, spesialis, image_profile) {
     console.log(user_id, dokter_id);
 
     try {
@@ -36,7 +36,7 @@ export const ListDokter = () => {
       const roomId = response.data.data;
 
       if (roomId) {
-        navigate(`/chat-apps/chat/${roomId}`, {state: {nama_dokter}});
+        navigate(`/chat-apps/chat/${roomId}`, {state: {nama_dokter, spesialis, image_profile}});
       }
     } catch (error) {
       console.error("Error handling konsultasi:", error);
@@ -66,7 +66,7 @@ export const ListDokter = () => {
                 <button
                   className="px-4 py-2 bg-blue-500 text-white"
                   onClick={() =>
-                    handleCreateKonsultasi(user.id, dokterItem.dokter_id, dokterItem.nama_dokter)
+                    handleCreateKonsultasi(user.id, dokterItem.dokter_id, dokterItem.nama_dokter, dokterItem.spesialis, dokterItem.image_profile)
                   }
                 >
                   Chat
