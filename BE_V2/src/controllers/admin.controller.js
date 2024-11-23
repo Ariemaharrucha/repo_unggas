@@ -15,7 +15,7 @@ const adminController = {
   handleCreateAdmin: async (req, res) => {  
     try {
       const result = await adminService.createAdmin(req.body);
-      return res.status(201).json({ message: "success create artikel", data: result});
+      return res.status(201).json({ message: "success create admin", data: result});
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Error creating user" });

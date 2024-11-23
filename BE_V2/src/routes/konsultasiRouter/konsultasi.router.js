@@ -3,7 +3,5 @@ import express from 'express';
 
 export const konsultasiRouter = express.Router();
 
-
 konsultasiRouter.post("/konsultasi/findOrCreate", konsultasiController.findOrCreateKonsultasi);
 konsultasiRouter.get("/konsultasi/dokter/:user_id", konsultasiController.handleGetDokterForUser);
-
