@@ -1,10 +1,11 @@
 import express from 'express';
 import artikeController from '../../controllers/artikel.controller.js';
 import dokterController from '../../controllers/dokter.conroller.js';
+import upload from '../../middleware/upload.middleware.js';
 
 export const dokterRouter = express.Router();
 
-dokterRouter.post('/dokter/artikel', artikeController.handleGetArtikel  );
+dokterRouter.post('/dokter/artikel', upload, artikeController.handleCreateArtikel  );
 dokterRouter.get('/dokter/artikel/:id', dokterController.handleGetArtikelDokter );
 
 // client
