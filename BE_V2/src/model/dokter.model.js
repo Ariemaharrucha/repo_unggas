@@ -55,7 +55,7 @@ const dokterModel = {
   },
 
   getUserForDokter: async (dokterId) => {
-    const sql = `SELECT u.user_id AS id, u.username, k.konsultasi_id 
+    const sql = `SELECT u.user_id AS id, u.username, u.image_profile, k.konsultasi_id 
         FROM konsultasi k
         JOIN users u ON k.user_id = u.user_id
         WHERE k.dokter_id = ?`;
