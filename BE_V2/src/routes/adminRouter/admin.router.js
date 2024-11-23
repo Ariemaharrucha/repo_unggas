@@ -14,6 +14,6 @@ adminRouter.post('/admin/artikel', upload, adminController.handleCreateArtikel);
 adminRouter.put('/admin/artikel/:id', upload, adminController.handleEditArtikel);
 adminRouter.delete('/admin/artikel/:id', adminController.handleDeleteArtkel);
 
-// dokter
+// handle dokter
 adminRouter.post('/admin/dokter', upload, adminController.handleCreateDokter);
 adminRouter.get('/admin/dokter', adminController.handleGetAllDokter);

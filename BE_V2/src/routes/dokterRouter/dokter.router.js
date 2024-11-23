@@ -5,5 +5,7 @@ export const dokterRouter = express.Router();
 
 dokterRouter.post('/dokter/artikel', dokterController.handleCreateArtikeldokter);
 dokterRouter.get('/dokter/artikel/:id', dokterController.handleGetArtikeldokter);
+
+// client
 dokterRouter.get("/dokter/list", dokterController.hanleGetAllDokterForUser);
 dokterRouter.get("/dokter/:dokterId/users", dokterController.hanleGetUsersForDokter);
