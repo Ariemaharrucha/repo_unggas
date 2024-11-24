@@ -20,7 +20,7 @@ export const Artikel = () => {
             <h1>{item.judul}</h1>
             <p>{item.kategori}</p>
             <div className='size-10 overflow-hidden'>
-              <img src={`http://localhost:3000/${item.image_artikel}`} alt="" className='h-full w-full object-cover'/>
+              <img src={item.image_artikel} alt="" className='h-full w-full object-cover'/>
             </div>
             <button className='p-2 bg-red-500'>
               <Link to={`details/${item.artikel_id}`}>Detail artikel</Link>

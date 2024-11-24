@@ -61,7 +61,7 @@ export const ListDokter = () => {
                 <li>
                   <img
                     className="size-10"
-                    src={`http://localhost:3000/${dokterItem?.image_profile}`}
+                    src={dokterItem?.image_profile}
                     alt=""
                   />
                 </li>

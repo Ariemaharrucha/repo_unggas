@@ -81,7 +81,7 @@ export const Chat = () => {
     <div className="flex ">
       <div className="p-4">
         <div className="size-10">
-          <img src={`http://localhost:3000/${imageProfile}`} alt="image profile dokter" className="object-cover h-full w-full"/>
+          <img src={imageProfile} alt="image profile dokter" className="object-cover h-full w-full"/>
         </div>
         <h1>{namaDokter}</h1>
         <h2>spesialis: {spesialisDokter}</h2>

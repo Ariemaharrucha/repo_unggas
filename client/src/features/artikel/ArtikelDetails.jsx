@@ -42,7 +42,7 @@ export const ArtikelDetails = () => {
             <p className="text-gray-700 mb-2">Kategori: {artikel.kategori}</p>
             <p className="text-gray-600 mb-4">Tanggal: {artikel.tanggal}</p>
             <img
-              src={`http://localhost:3000/${artikel.image_artikel}`}
+              src={artikel.image_artikel}
               alt={artikel.judul}
               className="mb-4 w-full h-80 object-cover"
             />

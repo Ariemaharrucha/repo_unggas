@@ -20,7 +20,7 @@ const artikelService= {
       author_id,
       role
     } = data;
-    console.log(data);
+    // console.log(data);
     
     return artikelModel.createArtikel({
       judul,

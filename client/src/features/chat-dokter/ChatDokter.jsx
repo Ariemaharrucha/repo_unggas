@@ -90,7 +90,7 @@ export const ChatDokter = () => {
               <div key={user.id} className="flex gap-4">
                 <div className="size-10">
                   <img
-                    src={`http://localhost:3000/${user.image_profile}`}
+                    src={user.image_profile}
                     alt="image profile"
                     className="h-full w-full object-cover"
                   />
@@ -116,7 +116,7 @@ export const ChatDokter = () => {
             <div className="flex gap-4">
             <div className="size-10">
                   <img
-                    src={`http://localhost:3000/${selectedUser.image_profile}`}
+                    src={selectedUser.image_profile}
                     alt="image profile"
                     className="h-full w-full object-cover"
                   />

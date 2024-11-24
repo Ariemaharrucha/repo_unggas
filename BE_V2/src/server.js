@@ -1,18 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import path from 'path';
 import http from 'http';
 import { dbConnection } from './config/db.js';
 import { Router } from './routes/index.js';
-import { fileURLToPath } from 'url';
 import { Server } from 'socket.io';
 import { query } from './config/db.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
+
 const app = express();
 const server = http.createServer(app)
 const io = new Server(server,{
@@ -21,19 +18,25 @@ const io = new Server(server,{
     methods: ["GET","POST"],
     credentials: true
   }
-})
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 dbConnection();
 
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
-}))
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(Router)
+app.use(Router);
+
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
@@ -65,4 +68,4 @@ io.on("connection", (socket) => {
 
 server.listen(process.env.APP_PORT, async () => {
     console.log(`server is running at ${process.env.APP_PORT}`)
-})
+});
