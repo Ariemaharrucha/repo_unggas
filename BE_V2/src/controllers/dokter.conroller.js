@@ -60,7 +60,8 @@ const dokterController = {
   },
 
   handleEditDetailDokter: async (req, res) => {
-    const {id} = req.params;  
+    const {id} = req.params;
+    console.log("Body Data:", req.body);
     try {
       const result = await dokterService.editDataDiriDokter(id, req.body);
       return res.status(201).json({ message: "edit details dokter successfully", data: result});
