@@ -6,6 +6,6 @@ import upload from "../../middleware/upload.middleware.js";
 export const userRouter = express.Router();
 
 userRouter.get('/profile/:id', userControllers.handleGetUserById);
-userRouter.post('/profile/:id', upload, userControllers.handleEditProfile);
+userRouter.put('/profile/:id', upload, userControllers.handleEditProfile);
 userRouter.get('/artikel', artikeController.handleGetArtikel);
 userRouter.get('/artikel/:id', artikeController.handleGetArtikelId)
