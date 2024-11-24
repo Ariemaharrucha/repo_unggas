@@ -1,4 +1,5 @@
 import artikelService from "../services/artikel.service.js";
+import cloudinary from "../config/cloudinary.js";
 
 const artikeController = {
   handleGetArtikel: async (req, res) => {
@@ -28,9 +29,7 @@ const artikeController = {
   },
 
   handleCreateArtikel: async (req, res) => {
-    const artikelImage = req.files.image_artikel
-      ? `uploads/artikel/${req.files.image_artikel[0].filename}`
-      : null;
+    const artikelImage = req.file ? req.file.path : null;
     console.log(artikelImage);
     console.log(req.body);
 
@@ -52,10 +51,15 @@ const artikeController = {
     const { id } = req.params;
     console.log(id);
     console.log(req.body);
-    const artikelImage = req.files.image_artikel
-      ? `uploads/artikel/${req.files.image_artikel[0].filename}`
-      : req.body.image_artikel;
+
     try {
+
+      if (req.file && req.body.image_artikel) {
+        const publicId = req.body.image_artikel.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
+      };
+
+      const artikelImage = req.file ? req.file.path : req.body.image_artikel;
       const result = await artikelService.editArtikel(id, {
         ...req.body,
         image_artikel: artikelImage,

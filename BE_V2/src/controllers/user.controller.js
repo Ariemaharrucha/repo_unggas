@@ -1,4 +1,5 @@
 import userService from "../services/user.service.js";
+import cloudinary from "../config/cloudinary.js";
 
 const userControllers = {
   handleGetUserById: async (req, res) => {
@@ -14,10 +15,14 @@ const userControllers = {
 
   handleEditProfile: async (req, res) => {
     const { id } = req.params;
-    const fotoProfile = req.files.image_profile
-      ? `uploads/userProfile/${req.files.image_profile[0].filename}`
-      : req.body.image_profile;
     try {
+
+      if (req.file && req.body.image_profile) {
+        const publicId = req.body.image_profile.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
+      }
+
+      const fotoProfile = req.file ? req.file.path : req.body.image_profile;
       const result = await userService.editUserProfile(id, {
         ...req.body,
         image_profile: fotoProfile,

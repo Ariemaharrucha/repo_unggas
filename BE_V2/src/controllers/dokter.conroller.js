@@ -2,14 +2,12 @@ import dokterService from "../services/dokter.service.js";
 
 const dokterController = {
   handleCreateDokter: async (req, res) => {
-    const {username, email, password, nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek} = req.body;
-    const imageProfie = req.files.image_profile
-      ? `uploads/userProfile/${req.files.image_profile[0].filename}`
-      : null;
-    console.log(imageProfie);
+    const imageProfile = req.file ? req.file.path : null;
+    console.log(imageProfile);
+    console.log(req.body);
     
     try {
-      const result = await dokterService.createDokter({username, email, password, nomer_str, nomer_telepon,image_profile: imageProfie, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek});
+      const result = await dokterService.createDokter({...req.body, image_profile: imageProfile});
       return res.status(201).json({ message: "add dokter successfully", data: result});
     } catch (error) {
       console.error(error);
