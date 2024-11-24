@@ -71,9 +71,13 @@ const dokterService = {
     editDataDiriDokter: async (id, data) => {
       const { nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek } = data;
       if(!nomer_str || !nomer_telepon || !spesialis || !pengalaman || !jam_kerja || !alumni || !tempat_praktek) {
+        console.error("Missing required fields:", data);
         throw new Error("Semua kolom harus diisi");
       }
-      const result = await dokterModel.editDokter(id, { nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek });
+      console.log(nomer_str, nomer_telepon, spesialis, pengalaman, jam_kerja, alumni, tempat_praktek);
+      
+      const result = await dokterModel.editDokter(id, data);
+      return result;
     },
 
     getArtikeldokter: async (id) => {
