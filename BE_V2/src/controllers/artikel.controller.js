@@ -95,7 +95,59 @@ const artikeController = {
       console.error(error);
       return res.status(500).json({ message: "Error fetch artikel" });
     }
-  }
+  },
+
+  handleGetArtikelKategori: async (req, res) => {
+    const { kategori } = req.params;
+    try {
+      const result = await artikelService.getArtikelKategori(kategori);
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
+
+  handleGetArtikelKategoriKesehatanUnggas: async (req, res) => {
+    try {
+      const result = await artikelService.getArtikelKategoriKesehatanUnggas();
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
+
+  handleGetArtikelKategoriNutrisi: async (req, res) => {
+    try {
+      const result = await artikelService.getArtikelKategoriNutrisi();
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
+
+  handleGetArtikelKategoriPakan: async (req, res) => {
+    try {
+      const result = await artikelService.getArtikelKategoriPakan();
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
+
+  handleGetArtikelKategoriLingkungan: async (req, res) => {
+    try {
+      const result = await artikelService.getArtikelKategoriLingkungan();
+      return res.status(200).json({ message: "success fetch", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
+
 };
 
 export default artikeController
