@@ -71,7 +71,33 @@ const artikelModel = {
   getArtikeForUser: async () => {
     const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, kategori, tanggal FROM artikel`;
     return await query(sqlQuery);
-  }
+  },
+
+  getArtikelKategoriKesehatanUnggas: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'kesehatan-unggas'`;
+    return await query(sqlQuery);
+  },
+
+  getArtikelKategoriPakan: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'pakan'`;
+    return await query(sqlQuery);
+  },
+
+  getArtikelKategoriNutrisi: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'nutrisi'`;
+    return await query(sqlQuery);
+  },
+
+  getArtikelKategorLingkungan: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'lingkungan'`;
+    return await query(sqlQuery);
+  },
+
+  getArtikelKategori: async (kategori) => {
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = ?`;
+    return await query(sqlQuery, [kategori]);
+  },
+
 };
 
 export default artikelModel;

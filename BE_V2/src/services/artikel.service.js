@@ -63,7 +63,28 @@ const artikelService= {
   getArtikelForUser: async () => {
     const result = await artikelModel.getArtikeForUser();
     return result;
-  }
+  },
+
+  getArtikelKategori: async (kategori) => {
+    return artikelModel.getArtikelKategori(kategori);
+  },
+
+  getArtikelKategoriLingkungan: async () => {
+    return artikelModel.getArtikelKategorLingkungan();
+  },
+
+  getArtikelKategoriPakan: async () => {
+    return artikelModel.getArtikelKategoriPakan();
+  },
+
+  getArtikelKategoriNutrisi: async () => {
+    return artikelModel.getArtikelKategoriNutrisi();
+  },
+
+  getArtikelKategoriKesehatanUnggas: async () => {
+    const result = await artikelModel.getArtikelKategoriKesehatanUnggas();
+    return result;
+  },
 }
 
 export default artikelService;
