@@ -66,23 +66,19 @@ const artikelService= {
   },
 
   getArtikelKategori: async (kategori) => {
-    const result = await artikelModel.getArtikelKategori(kategori);
-    return result;
+    return artikelModel.getArtikelKategori(kategori);
   },
 
   getArtikelKategoriLingkungan: async () => {
-    const result = await artikelModel.getArtikelKategorLingkungan();
-    return result;
+    return artikelModel.getArtikelKategorLingkungan();
   },
 
   getArtikelKategoriPakan: async () => {
-    const result = await artikelModel.getArtikelKategoriPakan();
-    return result;
+    return artikelModel.getArtikelKategoriPakan();
   },
 
   getArtikelKategoriNutrisi: async () => {
-    const result = await artikelModel.getArtikelKategoriNutrisi();
-    return result;
+    return artikelModel.getArtikelKategoriNutrisi();
   },
 
   getArtikelKategoriKesehatanUnggas: async () => {

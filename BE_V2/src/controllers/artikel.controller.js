@@ -111,6 +111,11 @@ const artikeController = {
   handleGetArtikelKategoriKesehatanUnggas: async (req, res) => {
     try {
       const result = await artikelService.getArtikelKategoriKesehatanUnggas();
+      console.log("result", result);
+      if(result.length === 0) {
+        return res.status(200).json({ message: "data 0", data: [] });
+      }
+      
       return res.status(200).json({ message: "success fetch", data: result });
     } catch (error) {
       console.error(error);

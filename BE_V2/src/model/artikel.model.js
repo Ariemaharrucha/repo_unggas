@@ -74,7 +74,7 @@ const artikelModel = {
   },
 
   getArtikelKategoriKesehatanUnggas: async () => {
-    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'kesehatan unggas'`;
+    const sqlQuery = `SELECT artikel_id, judul, author_name, konten, image_artikel, tanggal FROM artikel WHERE kategori = 'kesehatan-unggas'`;
     return await query(sqlQuery);
   },
 
