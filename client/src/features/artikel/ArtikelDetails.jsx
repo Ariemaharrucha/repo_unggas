@@ -47,7 +47,8 @@ export const ArtikelDetails = () => {
               alt={artikel.judul}
               className="mb-4 w-full h-80 object-cover"
             />
-            <p>{artikel.konten}</p>
+            <div dangerouslySetInnerHTML={{ __html: artikel.konten }}>
+            </div>
           </div>
         </div>
         )
