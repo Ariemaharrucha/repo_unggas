@@ -6,9 +6,10 @@ import { ChatDokter } from '../features/chat-dokter/ChatDokter.jsx';
 import { Chat } from '../features/chat/chat.jsx';
 import { Artikel } from '../features/artikel/Artikel.jsx';
 import { ArtikelDetails } from '../features/artikel/ArtikelDetails.jsx';
+import { AddArtikel } from '../features/admin/addArikel.jsx';
 
 export const AppRouter = () => {
-    return (
+    return (  
       <BrowserRouter>
         <Routes>
             <Route path='/login' element={<Login/>}></Route>
@@ -17,7 +18,8 @@ export const AppRouter = () => {
             <Route path='/chat-apps/chat/:konsultasiId' element={<Chat/>}/>
             <Route path='/chat-apps/dokter-chat' element={<ChatDokter/>}/>
             <Route path='/artikel' element={<Artikel/>}/>
-            <Route path='/artikel/details/:id' element={<ArtikelDetails/>}/>      
+            <Route path='/artikel/details/:id' element={<ArtikelDetails/>}/> 
+            <Route path='/artikel/create' element={<AddArtikel/>}/> 
         </Routes>
       </BrowserRouter>
     );

@@ -39,6 +39,7 @@ export const ArtikelDetails = () => {
         <div key={artikel.artikel_id}>
           <div className="p-8 bg-red-200">
             <h1 className="text-2xl font-bold mb-4">{artikel.judul}</h1>
+            <h1 className="text-2xl font-bold mb-4">{artikel.author_name}</h1>
             <p className="text-gray-700 mb-2">Kategori: {artikel.kategori}</p>
             <p className="text-gray-600 mb-4">Tanggal: {artikel.tanggal}</p>
             <img
