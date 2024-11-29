@@ -22,11 +22,19 @@ const userModel = {
     return await query(sqlQuery, [username, email, password, image_profile, role]);
   },
 
-  editUser: async (id, data) => {
-    const { username, email, password, image_profile } = data;
-    const sqlQuery = `UPDATE users SET username = ?, email = ?, password = ?, image_profile = ? WHERE user_id = ?`;
-    return await query(sqlQuery, [username, email, password, image_profile, id]);
-  },
+	editUser: async (id, data) => {
+	    const { username, email, image_profile, password } = data;
+
+	    const sqlQuery = password
+		? `UPDATE users SET username = ?, email = ?, password = ?, image_profile = ? WHERE user_id = ?`
+		: `UPDATE users SET username = ?, email = ?, image_profile = ? WHERE user_id = ?`;
+
+	    const params = password
+		? [username, email, password, image_profile, id]
+		: [username, email, image_profile, id];
+
+	    return await query(sqlQuery, params);
+	},
 
   deleteUser: async (id) => {
     const sqlQuery = `DELETE FROM users WHERE id = ?`;
