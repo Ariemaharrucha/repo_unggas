@@ -16,14 +16,24 @@ const userService = {
   },
 
   editUserProfile: async (id, data) => {
-    const { username, email, password, image_profile } = data;
-    if (!username || !email || !password) {
-      throw new Error("username, email, dan password harus diisi.");
-    };
+      const { username, email, password, image_profile } = data;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await userModel.editUser(id, { username, email, password: hashedPassword, image_profile });
-    return  result
+      if (!username || !email) {
+          throw new Error("Username dan email harus diisi.");
+      }
+
+      let hashedPassword = null;
+      if (password) {
+          hashedPassword = await bcrypt.hash(password, 10);
+      }
+
+      const result = await userModel.editUser(id, {
+          username,
+          email,
+          password: hashedPassword,
+          image_profile,
+      });
+      return result;
   },
 
   createAdmin: async (data) => {
