@@ -7,9 +7,12 @@ const authController = {
       return res.status(201).json({ message: "User registered successfully", data: result });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: "Error creating user" });
-    }
-  },
+      if (error.message === "Email already exists") {
+        return res.status(400).json({ message: "Email sudah terdaftar" });
+      }
+        return res.status(500).json({ message: "Terjadi kesalahan pada server" });
+      }
+    },
 
   handleLogin: async (req, res) => {
     try {
