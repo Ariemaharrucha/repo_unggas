@@ -28,7 +28,9 @@ const dokterModel = {
          d.pengalaman, 
          d.jam_kerja,
          d.alumni,
-         d.tempat_praktek
+         d.tempat_praktek,
+         d.nomer_str,
+         d.nomer_telepon
        FROM dokter d
        JOIN users u ON d.dokter_id = u.user_id
        WHERE u.role = 'dokter'`;
