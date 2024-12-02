@@ -49,13 +49,17 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", async ({ konsultasiId, senderId, content }) => {
     console.log(konsultasiId, senderId, content);
     try {
-      await query(
+      const result = await query(
         `INSERT INTO messages (konsultasi_id, sender_id, content) VALUES (?, ?, ?)`,
         [konsultasiId, senderId, content]
       );
+  
+      const [newMessage] = await query(
+        `SELECT message_id, konsultasi_id, sender_id AS senderId, content, sent_at FROM messages WHERE message_id = ?`,
+        [result.insertId]
+      );
 
-      // Kirim pesan ke semua user di room
-      io.in(konsultasiId).emit("receiveMessage", { senderId, content });
+      io.in(konsultasiId).emit("receiveMessage", newMessage);
     } catch (error) {
       console.error("Error sending message:", error);
     }
