@@ -37,13 +37,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Router);
 
-
+let activeRooms = {};
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   socket.on("joinRoom", (konsultasiId) => {
+    if (activeRooms[socket.id]) {
+      const previousKonsultasiId = activeRooms[socket.id];
+      socket.leave(previousKonsultasiId);
+      console.log(`User ${socket.id} left room: ${previousKonsultasiId}`);
+    }
+
     socket.join(konsultasiId);
-    console.log(`User joined room: ${konsultasiId}`);
+    activeRooms[socket.id] = konsultasiId;
+    console.log(`User ${socket.id} joined room: ${konsultasiId}`);
   });
 
   socket.on("sendMessage", async ({ konsultasiId, senderId, content }) => {
@@ -54,14 +61,26 @@ io.on("connection", (socket) => {
         [konsultasiId, senderId, content]
       );
   
+      // Ambil pesan yang baru saja dimasukkan, termasuk timestamp
       const [newMessage] = await query(
         `SELECT message_id, konsultasi_id, sender_id AS senderId, content, sent_at FROM messages WHERE message_id = ?`,
         [result.insertId]
       );
 
-      io.in(konsultasiId).emit("receiveMessage", newMessage);
+      io.to(konsultasiId).emit("receiveMessage", newMessage);
     } catch (error) {
       console.error("Error sending message:", error);
+    }
+  });
+
+  socket.on('leaveRoom', (konsultasiId) => {
+    console.log(`User ${socket.id} is leaving room: ${konsultasiId}`);
+
+    // Make sure the user is in the room before leaving
+    if (activeRooms[socket.id] === konsultasiId) {
+      socket.leave(konsultasiId);
+      delete activeRooms[socket.id];
+      console.log(`User ${socket.id} left room: ${konsultasiId}`);
     }
   });
 
