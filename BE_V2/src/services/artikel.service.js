@@ -43,7 +43,6 @@ const artikelService= {
       kategori,
       tanggal,
       author_id,
-      role
     } = data;
     if (!judul || !konten || !kategori) {
       throw new Error("Judul, teks, dan kategori artikel harus diisi.");
