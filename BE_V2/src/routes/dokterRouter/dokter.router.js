@@ -6,7 +6,7 @@ import userControllers from '../../controllers/user.controller.js';
 
 export const dokterRouter = express.Router();
 
-dokterRouter.get('/dokter/artikel/:id', dokterController.handleGetArtikelDokter);
+dokterRouter.get('/dokter/artikel-dokter/:id', dokterController.handleGetArtikelDokter);
 dokterRouter.get('/dokter/artikel/:id', artikeController.handleGetArtikelId);
 dokterRouter.post('/dokter/artikel', upload.single('image_artikel'), artikeController.handleCreateArtikel);
 dokterRouter.put('/dokter/artikel/:id', upload.single('image_artikel'), artikeController.handleEditArtikel);
