@@ -7,7 +7,7 @@ const messagesCotroller = {
 
     try {
       const rows = await query(
-        `SELECT sender_id AS senderId, content FROM messages WHERE konsultasi_id = ? `,
+        `SELECT sender_id AS senderId, content, sent_at FROM messages WHERE konsultasi_id = ? `,
         [konsultasiId]
       );
       res.status(200).json({ success: true, data: rows });
