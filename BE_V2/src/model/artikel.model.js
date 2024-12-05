@@ -96,6 +96,14 @@ const artikelModel = {
     return await query(sqlQuery, [kategori]);
   },
 
+  getNewArtikel: async () => {
+    const sqlQuery = `SELECT artikel_id, judul, konten, image_artikel, kategori, tanggal 
+      FROM artikel 
+      ORDER BY tanggal DESC 
+      LIMIT 3`;
+    return await query(sqlQuery);
+  }
+
 };
 
 export default artikelModel;

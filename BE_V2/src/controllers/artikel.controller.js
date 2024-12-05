@@ -153,6 +153,16 @@ const artikeController = {
     }
   },
 
+  handleGetNewArtikel: async (req, res) => {
+    try {
+      const result = await artikelService.getNewArtikels();
+      return res.status(200).json({ message: "success fetch new articles", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  }
+
 };
 
 export default artikeController

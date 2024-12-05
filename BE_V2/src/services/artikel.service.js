@@ -84,6 +84,11 @@ const artikelService= {
     const result = await artikelModel.getArtikelKategoriKesehatanUnggas();
     return result;
   },
+
+  getNewArtikels: async () => {
+    return artikelModel.getNewArtikel();
+  }
+  
 }
 
 export default artikelService;
