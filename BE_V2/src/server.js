@@ -60,14 +60,23 @@ io.on("connection", (socket) => {
         `INSERT INTO messages (konsultasi_id, sender_id, content) VALUES (?, ?, ?)`,
         [konsultasiId, senderId, content]
       );
-  
-      // Ambil pesan yang baru saja dimasukkan, termasuk timestamp
+      
       const [newMessage] = await query(
         `SELECT message_id, konsultasi_id, sender_id AS senderId, content, sent_at FROM messages WHERE message_id = ?`,
         [result.insertId]
       );
-
+      
+      // send message
       io.to(konsultasiId).emit("receiveMessage", newMessage);
+
+      // notif
+      const roomSockets = await io.in(konsultasiId).fetchSockets();
+      const dokterIsInRoom = roomSockets.some((socket)=> socket.id === activeRooms[socket.id]);
+
+      if(!dokterIsInRoom){
+        io.emit("newMessageNotification", {konsultasiId, message: newMessage})
+      }
+
     } catch (error) {
       console.error("Error sending message:", error);
     }
