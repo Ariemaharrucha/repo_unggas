@@ -80,6 +80,11 @@ const dokterService = {
       return result;
     },
 
+    deleteDokter: async (id) => {
+      return await dokterModel.deleteDokter(id);
+      
+    },
+
     getArtikeldokter: async (id) => {
         const result = await artikelModel.getArtikelByAuthorId(id);
         return result;

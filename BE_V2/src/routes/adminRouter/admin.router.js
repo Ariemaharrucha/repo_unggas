@@ -22,3 +22,4 @@ adminRouter.delete('/admin/artikel/:id', artikeController.handleDeleteArtkel);
 adminRouter.post('/admin/dokter', upload.single('image_profile'), dokterController.handleCreateDokter);
 adminRouter.get('/admin/dokter/total', dokterController.handleGetTotalDokter);
 adminRouter.get('/admin/dokter', dokterController.hanleGetAllDokter);
+adminRouter.delete('/admin/dokter/:id', dokterController.handleDeleteDokter);

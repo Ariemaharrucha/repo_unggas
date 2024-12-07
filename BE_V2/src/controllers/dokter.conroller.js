@@ -69,6 +69,17 @@ const dokterController = {
     }
   },
 
+  handleDeleteDokter: async (req, res) => {
+    const {id} = req.params;
+    try {
+      const result = await dokterService.deleteDokter(id);
+      return res.status(201).json({ message: "delete dokter successfully", data: result});
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error creating user" });
+    }
+  },
+
   handleGetArtikelDokter: async (req, res) => {
     const {id} = req.params;
     try {
