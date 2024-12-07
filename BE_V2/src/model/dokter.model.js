@@ -103,6 +103,11 @@ const dokterModel = {
       WHERE k.dokter_id = ?`;
     return query(sql, [dokterId]);
   },
+
+  getTotalDokter: async () => {
+    const sqlQuery = `SELECT COUNT(*) AS total FROM dokter`;
+    return query(sqlQuery);
+  },
   
 };
 

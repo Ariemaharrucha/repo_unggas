@@ -38,6 +38,17 @@ const userControllers = {
       return res.status(500).json({ message: "Error edit profile" });
     }
   },
+
+  handleGetTotalUser: async (req, res) => {
+    try {
+      const result = await userService.getTotalUser();
+      return res.status(200).json({ message: "success fetch total user", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch total user" });
+    }
+  },
+  
 };
 
 export default userControllers;

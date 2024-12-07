@@ -78,7 +78,17 @@ const dokterController = {
       console.error(error);
       res.status(500).json({ message: "Error fetching users" });
     }
-  }
+  },
+
+  handleGetTotalDokter: async (req, res) => {
+    try {
+      const result = await dokterService.getTotalDokter();
+      return res.status(200).json({ message: "success fetch total artikel", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
 
 };
 

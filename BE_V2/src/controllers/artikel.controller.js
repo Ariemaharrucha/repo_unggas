@@ -108,51 +108,6 @@ const artikeController = {
     }
   },
 
-  handleGetArtikelKategoriKesehatanUnggas: async (req, res) => {
-    try {
-      const result = await artikelService.getArtikelKategoriKesehatanUnggas();
-      console.log("result", result);
-      if(result.length === 0) {
-        return res.status(200).json({ message: "data 0", data: [] });
-      }
-      
-      return res.status(200).json({ message: "success fetch", data: result });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error fetch artikel" });
-    }
-  },
-
-  handleGetArtikelKategoriNutrisi: async (req, res) => {
-    try {
-      const result = await artikelService.getArtikelKategoriNutrisi();
-      return res.status(200).json({ message: "success fetch", data: result });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error fetch artikel" });
-    }
-  },
-
-  handleGetArtikelKategoriPakan: async (req, res) => {
-    try {
-      const result = await artikelService.getArtikelKategoriPakan();
-      return res.status(200).json({ message: "success fetch", data: result });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error fetch artikel" });
-    }
-  },
-
-  handleGetArtikelKategoriLingkungan: async (req, res) => {
-    try {
-      const result = await artikelService.getArtikelKategoriLingkungan();
-      return res.status(200).json({ message: "success fetch", data: result });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error fetch artikel" });
-    }
-  },
-
   handleGetNewArtikel: async (req, res) => {
     try {
       const result = await artikelService.getNewArtikels();
@@ -161,7 +116,17 @@ const artikeController = {
       console.error(error);
       return res.status(500).json({ message: "Error fetch artikel" });
     }
-  }
+  },
+
+  handleGetTotalArtikel: async (req, res) => {
+    try {
+      const result = await artikelService.getTotalArtikel();
+      return res.status(200).json({ message: "success fetch total artikel", data: result });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch artikel" });
+    }
+  },
 
 };
 

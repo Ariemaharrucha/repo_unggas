@@ -88,6 +88,11 @@ const dokterService = {
     getUserForDokter: async (dokterId) => {
         const result = await dokterModel.getUserForDokter(dokterId);
         return result;
+    },
+
+    getTotalDokter: async () => {
+      const result = await dokterModel.getTotalDokter();
+      return result;
     }
 };
 

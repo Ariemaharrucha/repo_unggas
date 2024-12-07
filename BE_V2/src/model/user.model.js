@@ -2,7 +2,7 @@ import { query } from "../config/db.js";
 
 const userModel = {
   getUser: async () => {
-    const sqlQuery = `SELECT * FROM users WHERE role = "user"`;
+    const sqlQuery = `SELECT username,  image_profile, email, role, created_at FROM users WHERE role = "user" LIMIT 10`;
     return await query(sqlQuery);
   },
 
@@ -39,6 +39,11 @@ const userModel = {
   deleteUser: async (id) => {
     const sqlQuery = `DELETE FROM users WHERE id = ?`;
     return await query(sqlQuery, [id]);
+  },
+
+  getTotalUser: async () => {
+    const sqlQuery = `SELECT COUNT(*) AS total FROM users WHERE role = "user"`;
+    return await query(sqlQuery);
   },
 };
 

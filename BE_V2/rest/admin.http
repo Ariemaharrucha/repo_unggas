@@ -52,3 +52,15 @@ Content-Type: application/json
     "email": "admin@gmail.com",
     "password": "admin1234"
 }
+
+### get total artikel
+GET http://localhost:3000/api/v1/admin/artikel/total
+
+### get total dokter
+GET http://localhost:3000/api/v1/admin/dokter/total
+
+### get total user
+GET http://localhost:3000/api/v1/admin/user/total
+
+### get new user 10
+GET http://localhost:3000/api/v1/admin/user

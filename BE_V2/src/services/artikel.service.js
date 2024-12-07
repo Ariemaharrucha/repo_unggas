@@ -68,26 +68,13 @@ const artikelService= {
     return artikelModel.getArtikelKategori(kategori);
   },
 
-  getArtikelKategoriLingkungan: async () => {
-    return artikelModel.getArtikelKategorLingkungan();
-  },
-
-  getArtikelKategoriPakan: async () => {
-    return artikelModel.getArtikelKategoriPakan();
-  },
-
-  getArtikelKategoriNutrisi: async () => {
-    return artikelModel.getArtikelKategoriNutrisi();
-  },
-
-  getArtikelKategoriKesehatanUnggas: async () => {
-    const result = await artikelModel.getArtikelKategoriKesehatanUnggas();
-    return result;
-  },
-
   getNewArtikels: async () => {
     return artikelModel.getNewArtikel();
-  }
+  },
+
+  getTotalArtikel: async () => {
+    return artikelModel.getTotalArtikel();
+  },
   
 }
 

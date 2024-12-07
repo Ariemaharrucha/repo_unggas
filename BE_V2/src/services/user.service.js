@@ -54,6 +54,10 @@ const userService = {
     });
   },
 
+  getTotalUser: async () => {
+    return userModel.getTotalUser();
+  },
+
 };
 
 export default userService;
