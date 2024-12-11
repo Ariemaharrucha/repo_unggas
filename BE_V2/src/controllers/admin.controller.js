@@ -12,6 +12,16 @@ const adminController = {
     }
   },
 
+  handleGetNewUser: async (req, res) => {
+    try {
+      const result = await userService.getNewUser();
+      return res.status(200).json({ message: "success fetch", data: result});
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error fetch user" });
+    }
+  },
+
   handleCreateAdmin: async (req, res) => {  
     try {
       const result = await userService.createAdmin(req.body);

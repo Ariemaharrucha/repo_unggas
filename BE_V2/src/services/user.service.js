@@ -7,6 +7,11 @@ const userService = {
     return users;
   },
 
+  getNewUser: async () => {
+    const users = await userModel.getNewUser();
+    return users;
+  },
+
   getUserById: async (id) => {
     const result = await userModel.getUserById(id);
     if(result == false) {

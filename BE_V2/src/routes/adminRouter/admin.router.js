@@ -8,6 +8,7 @@ export const adminRouter = express.Router();
 
 adminRouter.post('/admin/create-admin', adminController.handleCreateAdmin);
 adminRouter.get('/admin/user', adminController.handleGetAllUser);
+adminRouter.get('/admin/new-user', adminController.handleGetNewUser);
 adminRouter.get('/admin/user/total', userControllers.handleGetTotalUser);
 
 // artikel
